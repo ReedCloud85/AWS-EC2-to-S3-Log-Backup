@@ -1,0 +1,10 @@
+#!/bin/bash
+TIMESTAMP=$(date +%F-%H%M)
+BACKUP_FILE="/tmp/logs-backup-$TIMESTAMP.tar.gz"
+SOURCE_DIR="/var/log"
+
+tar -czf $BACKUP_FILE $SOURCE_DIR
+aws s3 cp $BACKUP_FILE s3://treed-backup-lab-62125/
+rm $BACKUP_FILE
+
+echo "Backup Complete!"
